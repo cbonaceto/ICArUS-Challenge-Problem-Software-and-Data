@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:Mission_1_2_3 xmlns:ns2="IcarusCPD_Base" xmlns:ns3="IcarusCPD_2" xmlns:ns4="IcarusCPD_1" xmlns:ns5="IcarusCPD_05" xmlns:ns6="IcarusUIStudy" missionType="Mission_2" blueScore="3.0" redScore="-3.0" programPhaseId="2" id="Mission2" examId="Final-Exam-1" startTime="2014-02-11T16:42:45.580-05:00" endTime="2014-02-11T17:02:37.344-05:00" name="Mission 2">
+    <ConditionNum>2</ConditionNum>
+    <CountCondition>true</CountCondition>
+    <InstructionPages>
+        <InstructionsPage imageUrl="../tutorial/Slide34.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide35.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide36.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide37.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide38.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide39.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide40.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide41.PNG"/>
+        <InstructionsPage imageUrl="../tutorial/Slide42.PNG"/>
+    </InstructionPages>
+    <ShowInstructionsPage>true</ShowInstructionsPage>
+    <ShowScore>false</ShowScore>
+    <ResponseGenerator>
+        <HumanSubject>true</HumanSubject>
+        <ResponseGeneratorId>150</ResponseGeneratorId>
+        <SiteId>PSU</SiteId>
+    </ResponseGenerator>
+    <ApplicationVersion>2.2a</ApplicationVersion>
+    <AoiFile fileUrl="Mission2_Area_Of_Interest.xml"/>
+    <BlueLocationsFile fileUrl="Mission2_Blue_Locations.xml"/>
+    <RedTactic>Mission_2_Aggressive</RedTactic>
+    <Trial trialTime_ms="214251" trialNum="1">
+        <Humint redCapability_Pc="1.0">
+            <numTrialsSinceLastAttack>0</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="3915">
+            <LocationIds>1-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="1217">
+            <LocationIds>1-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="78702">
+            <Datum datumType="OSINT" locationId="1-1"/>
+            <Datum datumType="IMINT" locationId="1-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155043845"/>
+            <Probability locationId="1-1" locationIndex="0" redAction="Attack" probability="70.0" rawProbability="70.0" time_ms="740396"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="3074">
+            <LocationIds>1-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="10514">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="1-1"/>
+            <Datum datumType="HUMINT" locationId="1-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155059757"/>
+            <Probability locationId="1-1" locationIndex="0" redAction="Attack" probability="90.0" rawProbability="90.0" time_ms="749070"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1529">
+            <LocationIds>1-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="25693">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="1-1"/>
+            <Datum datumType="SIGINT" locationId="1-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155076278"/>
+            <Probability locationId="1-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="763765"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="86877">
+            <BlueAction action="Divert" locationId="1-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="1-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="1-1" locationIndex="0" winner="Red"/>
+    </Trial>
+    <Trial trialTime_ms="236746" trialNum="2">
+        <Humint redCapability_Pc="0.4">
+            <numTrialsSinceLastAttack>1</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="25724">
+            <LocationIds>2-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="1670">
+            <LocationIds>2-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="31262">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Passive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="19032">
+            <Datum datumType="OSINT" locationId="2-1"/>
+            <Datum datumType="IMINT" locationId="2-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155255210"/>
+            <Probability locationId="2-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="765574"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="2168">
+            <LocationIds>2-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="11638">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="2-1"/>
+            <Datum datumType="HUMINT" locationId="2-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155269593"/>
+            <Probability locationId="2-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="774513"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1934">
+            <LocationIds>2-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="68656">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="2-1"/>
+            <Datum datumType="SIGINT" locationId="2-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155338296"/>
+            <Probability locationId="2-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="788147"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="65551">
+            <BlueAction action="Do_Not_Divert" locationId="2-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="2-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="2-1" locationIndex="0" winner="Red"/>
+    </Trial>
+    <Trial trialTime_ms="128388" trialNum="3">
+        <Humint redCapability_Pc="0.4">
+            <numTrialsSinceLastAttack>1</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="2512">
+            <LocationIds>3-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="1388">
+            <LocationIds>3-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="55192">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Passive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="20405">
+            <Datum datumType="OSINT" locationId="3-1"/>
+            <Datum datumType="IMINT" locationId="3-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155486870"/>
+            <Probability locationId="3-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="794215"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="1482">
+            <LocationIds>3-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="11622">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="3-1"/>
+            <Datum datumType="HUMINT" locationId="3-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155506230"/>
+            <Probability locationId="3-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="799051"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1342">
+            <LocationIds>3-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="6022">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="3-1"/>
+            <Datum datumType="SIGINT" locationId="3-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155514701"/>
+            <Probability locationId="3-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="801032"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="16255">
+            <BlueAction action="Do_Not_Divert" locationId="3-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="3-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="3-1" locationIndex="0" winner="Blue"/>
+    </Trial>
+    <Trial trialTime_ms="80980" trialNum="4">
+        <Humint redCapability_Pc="0.4">
+            <numTrialsSinceLastAttack>1</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="2074">
+            <LocationIds>4-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="1139">
+            <LocationIds>4-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="11279">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Aggressive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="13572">
+            <Datum datumType="OSINT" locationId="4-1"/>
+            <Datum datumType="IMINT" locationId="4-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155565526"/>
+            <Probability locationId="4-1" locationIndex="0" redAction="Attack" probability="80.0" rawProbability="80.0" time_ms="807287"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="1903">
+            <LocationIds>4-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="13728">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="4-1"/>
+            <Datum datumType="HUMINT" locationId="4-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155581781"/>
+            <Probability locationId="4-1" locationIndex="0" redAction="Attack" probability="70.0" rawProbability="70.0" time_ms="811639"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1482">
+            <LocationIds>4-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="10780">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="4-1"/>
+            <Datum datumType="SIGINT" locationId="4-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155599159"/>
+            <Probability locationId="4-1" locationIndex="0" redAction="Attack" probability="70.0" rawProbability="70.0" time_ms="818191"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="16926">
+            <BlueAction action="Do_Not_Divert" locationId="4-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="4-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="4-1" locationIndex="0" winner="Red"/>
+    </Trial>
+    <Trial trialTime_ms="64131" trialNum="5">
+        <Humint redCapability_Pc="0.4">
+            <numTrialsSinceLastAttack>1</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="2075">
+            <LocationIds>5-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="1107">
+            <LocationIds>5-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="8533">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Aggressive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="6162">
+            <Datum datumType="OSINT" locationId="5-1"/>
+            <Datum datumType="IMINT" locationId="5-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155642293"/>
+            <Probability locationId="5-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="819532"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="1264">
+            <LocationIds>5-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="14555">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="5-1"/>
+            <Datum datumType="HUMINT" locationId="5-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155657441"/>
+            <Probability locationId="5-1" locationIndex="0" redAction="Attack" probability="70.0" rawProbability="70.0" time_ms="831247"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1263">
+            <LocationIds>5-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="7145">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="5-1"/>
+            <Datum datumType="SIGINT" locationId="5-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155666271"/>
+            <Probability locationId="5-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="832963"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="19313">
+            <BlueAction action="Do_Not_Divert" locationId="5-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="5-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="5-1" locationIndex="0" winner="Blue"/>
+    </Trial>
+    <Trial trialTime_ms="134254" trialNum="6">
+        <Humint redCapability_Pc="0.4">
+            <numTrialsSinceLastAttack>1</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="1513">
+            <LocationIds>6-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="998">
+            <LocationIds>6-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="7270">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Aggressive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="7348">
+            <Datum datumType="OSINT" locationId="6-1"/>
+            <Datum datumType="IMINT" locationId="6-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155703679"/>
+            <Probability locationId="6-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="835678"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="1638">
+            <LocationIds>6-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="18486">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="6-1"/>
+            <Datum datumType="HUMINT" locationId="6-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155722290"/>
+            <Probability locationId="6-1" locationIndex="0" redAction="Attack" probability="65.0" rawProbability="65.0" time_ms="852058"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1233">
+            <LocationIds>6-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="9453">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="6-1"/>
+            <Datum datumType="SIGINT" locationId="6-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155735753"/>
+            <Probability locationId="6-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="854024"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="84490">
+            <BlueAction action="Do_Not_Divert" locationId="6-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Do_Not_Attack" locationId="6-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="6-1" locationIndex="0" winner="Blue"/>
+    </Trial>
+    <Trial trialTime_ms="115472" trialNum="7">
+        <Humint redCapability_Pc="0.7">
+            <numTrialsSinceLastAttack>2</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="3182">
+            <LocationIds>7-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="827">
+            <LocationIds>7-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="8253">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Aggressive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="8455">
+            <Datum datumType="OSINT" locationId="7-1"/>
+            <Datum datumType="IMINT" locationId="7-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155843627"/>
+            <Probability locationId="7-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="856723"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="1591">
+            <LocationIds>7-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="18081">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="7-1"/>
+            <Datum datumType="HUMINT" locationId="7-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155860101"/>
+            <Probability locationId="7-1" locationIndex="0" redAction="Attack" probability="50.0" rawProbability="50.0" time_ms="869609"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1154">
+            <LocationIds>7-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="6037">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="7-1"/>
+            <Datum datumType="SIGINT" locationId="7-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155870413"/>
+            <Probability locationId="7-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="871122"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="65084">
+            <BlueAction action="Divert" locationId="7-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Do_Not_Attack" locationId="7-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="7-1" locationIndex="0" winner="Blue"/>
+    </Trial>
+    <Trial trialTime_ms="95316" trialNum="8">
+        <Humint redCapability_Pc="0.9">
+            <numTrialsSinceLastAttack>3</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="2340">
+            <LocationIds>8-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="733">
+            <LocationIds>8-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="9781">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Aggressive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="6770">
+            <Datum datumType="OSINT" locationId="8-1"/>
+            <Datum datumType="IMINT" locationId="8-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392155957461"/>
+            <Probability locationId="8-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="874335"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="2325">
+            <LocationIds>8-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="29375">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="8-1"/>
+            <Datum datumType="HUMINT" locationId="8-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392155989316"/>
+            <Probability locationId="8-1" locationIndex="0" redAction="Attack" probability="55.0" rawProbability="55.0" time_ms="900262"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1029">
+            <LocationIds>8-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="6318">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="8-1"/>
+            <Datum datumType="SIGINT" locationId="8-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392155996164"/>
+            <Probability locationId="8-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="901759"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="35022">
+            <BlueAction action="Divert" locationId="8-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="8-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="8-1" locationIndex="0" winner="Red"/>
+    </Trial>
+    <Trial trialTime_ms="64131" trialNum="9">
+        <Humint redCapability_Pc="0.4">
+            <numTrialsSinceLastAttack>1</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="2059">
+            <LocationIds>9-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="842">
+            <LocationIds>9-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="12480">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Aggressive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="15273">
+            <Datum datumType="OSINT" locationId="9-1"/>
+            <Datum datumType="IMINT" locationId="9-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392156057987"/>
+            <Probability locationId="9-1" locationIndex="0" redAction="Attack" probability="50.0" rawProbability="50.0" time_ms="910635"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="1825">
+            <LocationIds>9-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="14570">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="9-1"/>
+            <Datum datumType="HUMINT" locationId="9-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392156074867"/>
+            <Probability locationId="9-1" locationIndex="0" redAction="Attack" probability="55.0" rawProbability="55.0" time_ms="920417"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1248">
+            <LocationIds>9-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="7769">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="9-1"/>
+            <Datum datumType="SIGINT" locationId="9-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392156087846"/>
+            <Probability locationId="9-1" locationIndex="0" redAction="Attack" probability="40.0" rawProbability="40.0" time_ms="922507"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="5413">
+            <BlueAction action="Do_Not_Divert" locationId="9-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="9-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="9-1" locationIndex="0" winner="Blue"/>
+    </Trial>
+    <Trial trialTime_ms="58079" trialNum="10">
+        <Humint redCapability_Pc="0.4">
+            <numTrialsSinceLastAttack>1</numTrialsSinceLastAttack>
+        </Humint>
+        <OsintPresentation trialPartTime_ms="1903">
+            <LocationIds>10-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </OsintPresentation>
+        <ImintPresentation trialPartTime_ms="780">
+            <LocationIds>10-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </ImintPresentation>
+        <MostLikelyRedTacticProbe name="Red Style Selection" type="MostLikelyRedTacticSelection" trialPartTime_ms="10328">
+            <RedTactics>Mission_2_Passive Mission_2_Aggressive</RedTactics>
+            <MostLikelyRedTactic>Mission_2_Aggressive</MostLikelyRedTactic>
+        </MostLikelyRedTacticProbe>
+        <AttackPropensityProbe_Pp id="Pp" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|IMINT, OSINT)" type="AttackProbabilityReport_Pp" trialPartTime_ms="8627">
+            <Datum datumType="OSINT" locationId="10-1"/>
+            <Datum datumType="IMINT" locationId="10-1"/>
+            <Datum datumType="BlueBook"/>
+            <AdjustmentSequence index="0" timeStamp="1392156119093"/>
+            <Probability locationId="10-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="924176"/>
+        </AttackPropensityProbe_Pp>
+        <HumintPresentation trialPartTime_ms="3198">
+            <LocationIds>10-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </HumintPresentation>
+        <AttackProbabilityProbe_Ppc id="Ppc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ppc" trialPartTime_ms="12760">
+            <Datum datumId="Pp" datumType="AttackProbabilityReport_Propensity" locationId="10-1"/>
+            <Datum datumType="HUMINT" locationId="10-1"/>
+            <AdjustmentSequence index="0" timeStamp="1392156134833"/>
+            <Probability locationId="10-1" locationIndex="0" redAction="Attack" probability="70.0" rawProbability="70.0" time_ms="933973"/>
+        </AttackProbabilityProbe_Ppc>
+        <SigintPresentation trialPartTime_ms="1264">
+            <LocationIds>10-1</LocationIds>
+            <LocationIndexes>0</LocationIndexes>
+        </SigintPresentation>
+        <AttackProbabilityProbe_Ptpc id="Ptpc" normalizationConstraint="LessThanOrEqualTo" targetSum="100.0" name="P(Attack|SIGINT, HUMINT, IMINT, OSINT)" type="AttackProbabilityReport_Ptpc" trialPartTime_ms="6115">
+            <Datum datumId="Ppc" datumType="AttackProbabilityReport_Capability_Propensity" locationId="10-1"/>
+            <Datum datumType="SIGINT" locationId="10-1"/>
+            <Datum datumType="SIGINTReliability"/>
+            <AdjustmentSequence index="0" timeStamp="1392156141884"/>
+            <Probability locationId="10-1" locationIndex="0" redAction="Attack" probability="60.0" rawProbability="60.0" time_ms="935299"/>
+        </AttackProbabilityProbe_Ptpc>
+        <BlueActionSelection dataProvidedToParticipant="false" name="Blue Action Selection" type="BlueActionSelection" trialPartTime_ms="11856">
+            <BlueAction action="Divert" locationId="10-1" locationIndex="0"/>
+        </BlueActionSelection>
+        <RedActionSelection dataProvidedToParticipant="true" type="RedActionSelection">
+            <RedAction action="Attack" locationId="10-1" locationIndex="0"/>
+        </RedActionSelection>
+        <ShowdownWinner locationId="10-1" locationIndex="0" winner="Red"/>
+    </Trial>
+</ns3:Mission_1_2_3>

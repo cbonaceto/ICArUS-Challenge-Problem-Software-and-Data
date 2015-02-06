@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.2" targetNamespace="IcarusCPD_Base"
+	xmlns:tns="IcarusCPD_Base" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="IcarusTestPhase" type="tns:IcarusTestPhase" />
+
+	<xs:element name="IcarusTestTrial" type="tns:IcarusTestTrial" />
+
+	<xs:element name="IcarusTrial" type="tns:IcarusTrial" />
+
+	<xs:element name="IcarusTrialResponse" type="tns:IcarusTrialResponse" />
+
+	<xs:element name="PhaseFeedback" type="tns:PhaseFeedback" />
+
+	<xs:element name="TrialFeedback" type="tns:TrialFeedback" />
+
+	<xs:element name="PausePhase" type="tns:Pause" />
+
+	<xs:complexType name="IcarusEvaluationBase" abstract="true">
+		<xs:sequence>
+			<xs:element name="NormalizationMode" type="tns:NormalizationMode"
+				minOccurs="0" />
+			<xs:element name="ResponseGenerator" type="tns:ResponseGenerator"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="programPhaseId" type="xs:string" />
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="officialModelRun" type="xs:boolean" />
+		<xs:attribute name="examTimeStamp" type="xs:dateTime" />
+		<xs:attribute name="startTime" type="xs:dateTime" />
+		<xs:attribute name="endTime" type="xs:dateTime" />
+	</xs:complexType>
+
+	<xs:complexType name="ResponseGenerator">
+		<xs:sequence>
+			<xs:element name="HumanSubject" type="xs:boolean"
+				minOccurs="0" />
+			<xs:element name="ResponseGeneratorId" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="SiteId" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTestPhase" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusExamPhase">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTutorialPhase">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusExamPhase">
+				<xs:sequence>
+					<xs:element name="TutorialNavigationTree" type="tns:TutorialNavigationTree"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusExamPhase" abstract="true">
+		<xs:sequence>
+			<xs:element name="ConditionNum" type="xs:int" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="CountCondition" type="xs:boolean"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="InstructionPages" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="InstructionsPage" type="tns:InstructionsPage"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ShowInstructionsPage" type="xs:boolean"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="ShowScore" type="xs:boolean" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="InstructionText" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="PhaseFileUrl" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="ResponseGenerator" type="tns:ResponseGenerator"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="programPhaseId" type="xs:string" />
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="examId" type="xs:string" />
+		<xs:attribute name="officialModelRun" type="xs:boolean" />
+		<xs:attribute name="startTime" type="xs:dateTime" />
+		<xs:attribute name="endTime" type="xs:dateTime" />
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTestTrial" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTrial">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTrial" abstract="true">
+		<xs:sequence />
+		<xs:attribute name="examId" type="xs:string" />
+		<xs:attribute name="phaseId" type="xs:string" />
+		<xs:attribute name="programPhaseId" type="xs:string" />
+		<xs:attribute name="trialNum" type="xs:int" />
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTrialResponse" abstract="true">
+		<xs:sequence>
+			<xs:element name="ResponseGenerator" type="tns:ResponseGenerator"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="programPhaseId" type="xs:string" />
+		<xs:attribute name="examId" type="xs:string" />
+		<xs:attribute name="phaseId" type="xs:string" />
+		<xs:attribute name="trialNum" type="xs:int" />
+		<xs:attribute name="startTime" type="xs:dateTime" />
+		<xs:attribute name="endTime" type="xs:dateTime" />
+		<xs:attribute name="trialTime_ms" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="PhaseFeedback" abstract="true">
+		<xs:sequence>
+			<xs:element name="Errors" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="programPhaseId" type="xs:string" />
+		<xs:attribute name="examId" type="xs:string" />
+		<xs:attribute name="phaseId" type="xs:string" />
+		<xs:attribute name="responseGeneratorId" type="xs:string" />
+		<xs:attribute name="responseWellFormed" type="xs:boolean" />
+	</xs:complexType>
+
+	<xs:complexType name="TrialFeedback" abstract="true">
+		<xs:sequence>
+			<xs:element name="Errors" type="xs:string" minOccurs="0" />
+			<xs:element name="Warnings" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="programPhaseId" type="xs:string" />
+		<xs:attribute name="examId" type="xs:string" />
+		<xs:attribute name="phaseId" type="xs:string" />
+		<xs:attribute name="responseGeneratorId" type="xs:string" />
+		<xs:attribute name="responseWellFormed" type="xs:boolean" />
+		<xs:attribute name="trialNum" type="xs:int" />
+	</xs:complexType>
+
+	<xs:complexType name="Pause">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusExamPhase">
+				<xs:sequence />
+				<xs:attribute name="Length_seconds" type="xs:int" />
+				<xs:attribute name="Required" type="xs:boolean" />
+				<xs:attribute name="ShowCountdown" type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="InstructionsPage">
+		<xs:sequence>
+			<xs:element name="PageText" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="imageUrl" type="xs:string" />
+		<xs:attribute name="pageClickHyperlink" type="xs:string" />
+		<xs:attribute name="pageUrl" type="xs:anyURI" />
+	</xs:complexType>
+
+	<xs:complexType name="TutorialNavigationTree">
+		<xs:sequence>
+			<xs:element name="TutorialName" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="TutorialSection" type="tns:TutorialTreeParentNode"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TutorialTreeParentNode">
+		<xs:complexContent>
+			<xs:extension base="tns:TutorialTreeNode">
+				<xs:sequence>
+					<xs:element name="Children" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Child" type="tns:TutorialTreeNode"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TutorialTreeNode">
+		<xs:sequence />
+		<xs:attribute name="iconUrl" type="xs:string" />
+		<xs:attribute name="pageIndex" type="xs:int" />
+		<xs:attribute name="pageOrSectionName" type="xs:string" />
+	</xs:complexType>
+
+	<xs:simpleType name="NormalizationMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NormalizeDuringInstaneous" />
+			<xs:enumeration value="NormalizeDuringManual" />
+			<xs:enumeration value="NormalizeAfter" />
+			<xs:enumeration value="NormalizeAfterAndConfirm" />
+			<xs:enumeration value="NormalizeOff" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="IcarusCPD_05" xmlns:ns1="IcarusCPD_Base" xmlns:tns="IcarusCPD_05" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import namespace="IcarusCPD_Base" schemaLocation="IcarusBaseSchema.xsd" />
+
+  <xs:element name="IcarusEvaluation" type="tns:IcarusEvaulation"/>
+
+  <xs:element name="TestPhase" type="tns:Test"/>
+
+  <xs:element name="TrainingPhase" type="tns:Training"/>
+
+  <xs:complexType name="Test">
+    <xs:complexContent>
+      <xs:extension base="ns1:IcarusTestPhase">
+        <xs:sequence>
+          <xs:element name="Trial" type="ns1:IcarusTestTrial" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IcarusTestTrial_Phase05" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="ns1:IcarusTestTrial">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ScenePresentation">
+    <xs:complexContent>
+      <xs:extension base="tns:IcarusTestTrial_Phase05">
+        <xs:sequence>
+          <xs:element name="FeatureVectorUrl" type="xs:string" minOccurs="0"/>
+          <xs:element name="ObjectPaletteUrl" type="xs:string" minOccurs="0"/>
+          <xs:element name="SceneConstraints" type="tns:sceneConstraints" minOccurs="0"/>
+          <xs:element name="Question" type="tns:Question" minOccurs="0"/>
+          <xs:element name="BaseLayers" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="LayerId" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="AdditionalLayers" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="LayerPresentation" type="tns:LayerPresentation" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="ProbabilityData" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="LayerPresentation" type="tns:LayerProbabilityData" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SectorTruthData" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SectorItems" type="tns:sectorTruthData" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sceneConstraints">
+    <xs:sequence>
+      <xs:element name="MaxEventsInScene" type="xs:int" minOccurs="0"/>
+      <xs:element name="MaxFacilitiesInScene" type="xs:int" minOccurs="0"/>
+      <xs:element name="MaxObjectsInScene" type="xs:int" minOccurs="0"/>
+      <xs:element name="MinEventsInScene" type="xs:int" minOccurs="0"/>
+      <xs:element name="MinFacilitiesInScene" type="xs:int" minOccurs="0"/>
+      <xs:element name="MinObjectsInScene" type="xs:int" minOccurs="0"/>
+      <xs:element name="SectorConstraints" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SectorConstraint" type="tns:sectorConstraints" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sectorConstraints">
+    <xs:sequence>
+      <xs:element name="MaxEventsInSector" type="xs:int" minOccurs="0"/>
+      <xs:element name="MaxFacilitiesInSector" type="xs:int" minOccurs="0"/>
+      <xs:element name="MaxObjectsInSector" type="xs:int" minOccurs="0"/>
+      <xs:element name="MinEventsInSector" type="xs:int" minOccurs="0"/>
+      <xs:element name="MinFacilitiesInSector" type="xs:int" minOccurs="0"/>
+      <xs:element name="MinObjectsInSector" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="SectorId" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="Question" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="IdentifyItem">
+    <xs:complexContent>
+      <xs:extension base="tns:Question">
+        <xs:sequence>
+          <xs:element name="SceneItemsToProbe">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ItemId" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="SectorToProbe" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="LocateItem">
+    <xs:complexContent>
+      <xs:extension base="tns:Question">
+        <xs:sequence>
+          <xs:element name="SceneItemToProbe" type="xs:int"/>
+          <xs:element name="SectorsToProbe">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SectorId" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="LayerPresentation" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="SimultaneousPresentation">
+    <xs:complexContent>
+      <xs:extension base="tns:LayerPresentation">
+        <xs:sequence>
+          <xs:element name="SimultaneousLayers" type="tns:LayerList" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="LayerList">
+    <xs:sequence>
+      <xs:element name="LayerId" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SequentialPresentation">
+    <xs:complexContent>
+      <xs:extension base="tns:LayerPresentation">
+        <xs:sequence>
+          <xs:element name="Layers" type="tns:LayerList" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UserChoicePresentation">
+    <xs:complexContent>
+      <xs:extension base="tns:LayerPresentation">
+        <xs:sequence>
+          <xs:element name="numOptionalLayersToShow" type="xs:int" minOccurs="0"/>
+          <xs:element name="OptionalLayers" type="tns:LayerList" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="LayerProbabilityData">
+    <xs:sequence>
+      <xs:element name="LayersShown" type="tns:LayerList" minOccurs="0"/>
+      <xs:element name="ProbabilitiesForSector" type="tns:sectorProbabilityData" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sectorProbabilityData">
+    <xs:sequence>
+      <xs:element name="SceneItemProbability" type="tns:SceneItemProbability" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="SectorID" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="SceneItemProbability">
+    <xs:sequence/>
+    <xs:attribute name="ItemId" type="xs:int" use="required"/>
+    <xs:attribute name="Probability" type="xs:double" use="required"/>
+    <xs:attribute name="RawProbability" type="xs:double"/>
+  </xs:complexType>
+
+  <xs:complexType name="sectorTruthData">
+    <xs:sequence>
+      <xs:element name="SceneItemsPresent" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SceneItem" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="SectorID" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="AnalogicReasoning">
+    <xs:complexContent>
+      <xs:extension base="tns:IcarusTestTrial_Phase05">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Assessment">
+    <xs:complexContent>
+      <xs:extension base="tns:IcarusTestTrial_Phase05">
+        <xs:sequence>
+          <xs:element name="Evidence" type="tns:EvidenceElement" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="ObjectPaletteUrl" type="xs:string" minOccurs="0"/>
+          <xs:element name="ProbabilitiesNormalized" type="xs:boolean"/>
+          <xs:element name="QuestionText" type="xs:string" minOccurs="0"/>
+          <xs:element name="SceneItemsToProbe" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ItemId" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EvidenceElement">
+    <xs:sequence/>
+    <xs:attribute name="ItemId" type="xs:int"/>
+    <xs:attribute name="ItemType" type="tns:itemType"/>
+  </xs:complexType>
+
+  <xs:complexType name="IdentifyItemResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:ScenePresentationTrialResponse">
+        <xs:sequence>
+          <xs:element name="SectorId" type="xs:int"/>
+          <xs:element name="SceneItemProbabilityResponse" type="tns:SceneItemProbabilityResponses" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ScenePresentationTrialResponse" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="ns1:IcarusTrialResponse">
+        <xs:sequence>
+          <xs:element name="TrialScore" type="xs:double" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SceneItemProbabilityResponses">
+    <xs:complexContent>
+      <xs:extension base="tns:ProbabilityData">
+        <xs:sequence>
+          <xs:element name="SceneItemProbabilities" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SceneItemProbability" type="tns:SceneItemProbability" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Score" type="xs:double" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProbabilityData">
+    <xs:sequence>
+      <xs:element name="LayerSelectionTime_ms" type="xs:long" minOccurs="0"/>
+      <xs:element name="LayersShown" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Layer" type="tns:layerData" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ProbabilityEntryTime_ms" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="layerData">
+    <xs:sequence/>
+    <xs:attribute name="LayerId" type="xs:int" use="required"/>
+    <xs:attribute name="PresentationType" type="tns:presentationType"/>
+  </xs:complexType>
+
+  <xs:complexType name="LocateItemResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:ScenePresentationTrialResponse">
+        <xs:sequence>
+          <xs:element name="SceneItemId" type="xs:int"/>
+          <xs:element name="SectorProbabilityResponse" type="tns:SectorProbabilityResponses" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SectorProbabilityResponses">
+    <xs:complexContent>
+      <xs:extension base="tns:ProbabilityData">
+        <xs:sequence>
+          <xs:element name="Score" type="xs:double" minOccurs="0"/>
+          <xs:element name="SectorProbabilities" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SectorProbability" type="tns:SectorProbability" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SectorProbability">
+    <xs:sequence/>
+    <xs:attribute name="SectorId" type="xs:int" use="required"/>
+    <xs:attribute name="Probability" type="xs:double" use="required"/>
+    <xs:attribute name="RawProbability" type="xs:double"/>
+  </xs:complexType>
+
+  <xs:complexType name="AssessmentResponse">
+    <xs:complexContent>
+      <xs:extension base="ns1:IcarusTrialResponse">
+        <xs:sequence>
+          <xs:element name="Evidence" type="tns:EvidenceElement" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="SceneItemProbabilities" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SceneItemProbability" type="tns:SceneItemProbability" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Training">
+    <xs:complexContent>
+      <xs:extension base="ns1:IcarusExamPhase">
+        <xs:sequence>
+          <xs:element name="Training" type="tns:IcarusTrainingTrial" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IcarusTrainingTrial" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="ns1:IcarusTrial">
+        <xs:sequence/>
+        <xs:attribute name="TrainingNum" type="xs:int"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Annotations">
+    <xs:complexContent>
+      <xs:extension base="tns:IcarusTrainingTrial">
+        <xs:sequence>
+          <xs:element name="Annotations" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Annotation" type="tns:Annotation" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="BaseLayers" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="LayerId" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="FeatureVectorUrl" type="xs:string" minOccurs="0"/>
+          <xs:element name="ObjectPaletteUrl" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Annotation">
+    <xs:sequence>
+      <xs:element name="SectorId" type="xs:int"/>
+      <xs:element name="ItemId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AnnotationGrid">
+    <xs:complexContent>
+      <xs:extension base="tns:IcarusTrainingTrial">
+        <xs:sequence>
+          <xs:element name="BaseLayers" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="LayerId" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="AnnotationGridRow" type="tns:AnnotationGridRow" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AnnotationGridRow">
+    <xs:sequence>
+      <xs:element name="AnnotationGridColumn" type="tns:AnnotationGridColumn" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ItemId" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AnnotationGridColumn">
+    <xs:sequence>
+      <xs:element name="FeatureVectorUrl" type="xs:string" minOccurs="0"/>
+      <xs:element name="ObjectPaletteUrl" type="xs:string" minOccurs="0"/>
+      <xs:element name="SectorId" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Rules">
+    <xs:complexContent>
+      <xs:extension base="tns:IcarusTrainingTrial">
+        <xs:sequence>
+          <xs:element name="Rules" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Rule" type="tns:Rule" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Rule">
+    <xs:sequence>
+      <xs:element name="RuleText" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="RuleId" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="IcarusEvaulation">
+    <xs:complexContent>
+      <xs:extension base="ns1:IcarusEvaluationBase">
+        <xs:sequence>
+          <xs:element name="TutorialUrl" type="xs:string" minOccurs="0"/>
+          <xs:element name="Facilities" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Facility" type="tns:FacilitySceneItem" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Objects" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Object" type="tns:ObjectSceneItem" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Incidents" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Incident" type="tns:IncidentSceneItem" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="ExamPhase" type="ns1:IcarusExamPhase" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FacilitySceneItem">
+    <xs:complexContent>
+      <xs:extension base="tns:SceneItem">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="SceneItem" abstract="true">
+    <xs:sequence/>
+    <xs:attribute name="ItemId" type="xs:int" use="required"/>
+    <xs:attribute name="ItemName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ObjectSceneItem">
+    <xs:complexContent>
+      <xs:extension base="tns:SceneItem">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="IncidentSceneItem">
+    <xs:complexContent>
+      <xs:extension base="tns:SceneItem">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="itemType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Building"/>
+      <xs:enumeration value="Rooftop_Hardware"/>
+      <xs:enumeration value="Water"/>
+      <xs:enumeration value="SIGINT"/>
+      <xs:enumeration value="MASINT_1"/>
+      <xs:enumeration value="MASINT_2"/>
+      <xs:enumeration value="Other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="presentationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Base"/>
+      <xs:enumeration value="Simultaneous"/>
+      <xs:enumeration value="Sequential"/>
+      <xs:enumeration value="UserChoice"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

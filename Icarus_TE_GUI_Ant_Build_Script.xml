@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_desktop_application" name="Create Desktop and Web Packaged ICArUS Applications ">
+    <!-- ANT build script for the full Test & Evaulation software suite for all Phases (1 and 2) -->
+    <!-- Only packages dependences needed for the GUI and for connecting to the Test Harness -->
+    <!-- Before building using this script, you must compile all source code into build/classes using build.xml. -->   
+    
+    <!-- The desktop application folder name -->
+    <property name="appname" value="Icarus_TE_Application"/>
+    
+    <!-- The web folder name -->
+    <!--ANT 1.7 is required -->    
+    <property name="webfolder" value="web"/>
+    
+    <!-- Create the application folder, the runnable jar file in the application folder, and copy the exam files
+    to the application folder -->
+    <target name="create_desktop_application">
+        <antcall target="create_desktop_jar" />
+        <antcall target="copy_exam_files" />
+    </target>
+    
+    <!-- Create the runnable jar file in the desktop application folder for the desktop version -->
+    <target name="create_desktop_jar">
+        <!-- Create the desktop application folder if it doesn't exist -->
+        <mkdir dir="distrib/${appname}"/>       
+        
+        <jar destfile="distrib/${appname}/Icarus_TE_GUI.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.mitre.icarus.cps.app.window.launch.LaunchDesktopApplication"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+        	
+            <!-- Add LICENSE.txt and NOTICE.txt -->
+            <fileset includes="LICENSE.txt,NOTICE.txt" dir="."/>
+            
+            <!-- Add compiled class files -->
+            <fileset dir="build/classes"/>
+        	
+            <!-- Add Schemas and Images/Icons -->
+            <fileset includes="schemas/*.xsd" dir="schemas"/>
+            <fileset includes="images/*.*,images/phase_1/*.*,images/phase_2/*.*" dir="images"/>    
+            
+            <!-- Add SwingX Dependencies for the Phase 2 Map -->
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/swingx-ws.jar"/>
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/swingx-1.6.jar"/>                	        	            
+            <!-- Add Apache Commons IO dependency -->
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/commons-io-2.4.jar"/>
+        	
+            <!-- Add Java API For KML Dependencies-->
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/JavaAPIforKml.jar"/>
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/jaxb-impl.jar"/>
+            
+            <!-- Add HTTP Client Dependencies -->
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/commons-codec-1.6.jar"/>
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/commons-logging-1.1.1.jar"/>
+        </jar>
+    </target>
+    
+    <!--Copy exam files to the desktop application folder. Also copies LICENSE.txt and NOTICE.txt -->
+    <target name="copy_exam_files">
+        <!-- Copy LICENSE.txt and NOTICE.txt -->
+        <copy todir="distrib/${appname}">
+            <fileset includes="LICENSE.txt,NOTICE.txt" dir="."/>
+        </copy>
+        
+        <!-- Create the data folder if it doesn't exist -->
+        <mkdir dir="distrib/${appname}/data"/>
+        
+        <!-- Copy Phase 1 Final Exam files -->
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="distrib/${appname}/data/Phase_1_CPD/" includes="**/.svn/" defaultexcludes="false"/>
+        </delete>
+        <mkdir dir="distrib/${appname}/data/Phase_1_CPD/exams/Final-Exam-1"/>
+        <copy todir="distrib/${appname}/data/Phase_1_CPD/exams/Final-Exam-1">
+            <fileset 
+                includes="tutorials/images/*.*,tutorials/images/Task_Tutorials/*.*,Final-Exam-1.xml,*.csv"
+                dir="data/Phase_1_CPD/exams/Final-Exam-1">
+            </fileset>
+        </copy>
+        
+         <!-- Copy Phase 1 Pilot Exam files -->        
+        <mkdir dir="distrib/${appname}/data/Phase_1_CPD/exams/PilotExam-1-15"/>
+        <copy todir="distrib/${appname}/data/Phase_1_CPD/exams/PilotExam-1-15">
+            <fileset 
+                includes="tutorials/images/*.*,tutorials/images/Task_Tutorials/*.*,PilotExam-1-15.xml,*.csv"
+                dir="data/Phase_1_CPD/exams/PilotExam-1-15">
+            </fileset>
+        </copy>
+        
+         <!-- Copy Phase 1 playback files -->        
+        <mkdir dir="distrib/${appname}/data/Phase_1_CPD/player_data"/>
+        <copy todir="distrib/${appname}/data/Phase_1_CPD/player_data">
+            <fileset 
+                dir="data/Phase_1_CPD/player_data">
+            </fileset>
+        </copy>
+        
+        <!-- Copy Phase 2 Final Exam files -->
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir="distrib/${appname}/data/Phase_2_CPD/" includes="**/.svn/" defaultexcludes="false"/>
+        </delete>
+        <mkdir dir="distrib/${appname}/data/Phase_2_CPD/exams/Final-Exam-1"/>
+        <copy todir="distrib/${appname}/data/Phase_2_CPD/exams/Final-Exam-1">
+            <fileset 
+                includes="*.png,*.xml"
+                dir="data/Phase_2_CPD/exams/Final-Exam-1">
+            </fileset>
+        </copy>
+        
+        <!-- Copy Phase 2 Sample (Pilot) Exam files -->        
+        <mkdir dir="distrib/${appname}/data/Phase_2_CPD/exams/Sample-Exam-1"/>
+        <copy todir="distrib/${appname}/data/Phase_2_CPD/exams/Sample-Exam-1">
+            <fileset 
+                includes="*.png,*.xml"
+                dir="data/Phase_2_CPD/exams/Sample-Exam-1">
+            </fileset>
+        </copy>
+        <mkdir dir="distrib/${appname}/data/Phase_2_CPD/exams/Sample-Exam-2"/>
+        <copy todir="distrib/${appname}/data/Phase_2_CPD/exams/Sample-Exam-2">
+            <fileset 
+                includes="*.png,*.xml"
+                dir="data/Phase_2_CPD/exams/Sample-Exam-2">
+            </fileset>
+        </copy>
+        <mkdir dir="distrib/${appname}/data/Phase_2_CPD/exams/Sample-Exam-DG"/>
+        <copy todir="distrib/${appname}/data/Phase_2_CPD/exams/Sample-Exam-DG">
+            <fileset 
+                includes="*.png,*.xml"
+                dir="data/Phase_2_CPD/exams/Sample-Exam-DG">
+            </fileset>
+        </copy>
+        
+        <!-- Copy Phase 2 Tutorial files -->        
+        <mkdir dir="distrib/${appname}/data/Phase_2_CPD/exams/tutorial"/>
+        <copy todir="distrib/${appname}/data/Phase_2_CPD/exams/tutorial">
+            <fileset 
+                includes="*.png,*.PNG"
+                dir="data/Phase_2_CPD/exams/tutorial">
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- Create the jar file in the web folder for the webstart and applet versions -->
+    <target name="create_web_jar">
+        <!-- Create the webstart application folder if it doesn't exist -->        
+        <jar destfile="${webfolder}/Icarus_TE_GUI.jar" filesetmanifest="mergewithoutmain" compress="true">
+            <manifest>
+                <!--<attribute name="Main-Class" value="org.mitre.icarus.cps.app.window.launch.LaunchWebstartApplication"/>-->
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Permissions" value="all-permissions"/>
+                <!--<attribute name="Codebase" value="icarus.mitre.org"/>-->                               
+                <attribute name="Implementation-Vendor" value="The MITRE Corporation"/>
+                <attribute name="Implementation-Title" value="ICArUS Training Suite"/>
+                <attribute name="Implementation-Version" value="1"/>
+                <attribute name="Application-Name" value="ICArUS Training Suite"/>
+            </manifest>
+        	
+            <!-- Add LICENSE.txt and NOTICE.txt -->
+            <fileset includes="LICENSE.txt,NOTICE.txt" dir="."/>
+            
+            <!-- Add compiled class files -->
+            <fileset dir="build/classes" excludes="org/mitre/icarus/cps/assessment/assessment_metrics_computer/**,
+                org/mitre/icarus/cps/assessment/assessment_processor/**,
+                org/mitre/icarus/cps/assessment/data_aggregator/**,                
+                org/mitre/icarus/cps/assessment/model_simulator/**,
+                org/mitre/icarus/cps/assessment/persistence/**,
+                org/mitre/icarus/cps/assessment/survey/**,
+                org/mitre/icarus/cps/examples/*.*, org/mitre/icarus/cps/test_harness/**,
+                database.properties, hibernate.properties, applicationContext.xml"/>
+        	
+            <!-- Add Schemas and Images/Icons -->
+            <fileset includes="schemas/*.xsd" dir="schemas"/>            
+            <fileset includes="images/*.*,images/phase_1/*.*,images/phase_2/*.*" dir="images"/>    
+            
+            <!-- Add SwingX Dependencies for the Phase 2 Map -->
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/swingx-ws.jar"/>
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/swingx-1.6.jar"/>                	        	            
+        	
+            <!-- Add Apache Commons IO dependency -->
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/commons-io-2.4.jar"/>
+        	
+            <!-- Add Java API For KML Dependencies-->
+            <zipfileset excludes="META-INF/*.SF,META-INF/*.TXT,META-INF/*.txt" src="lib/JavaAPIforKml.jar"/>            
+            
+            <!-- Add the Phase 1 exams -->           
+            <fileset includes="data/Phase_1_CPD/exams/PilotExam-1-15/tutorials/images/*.*,
+                          data/Phase_1_CPD/exams/PilotExam-1-15/tutorials/images/Task_Tutorials/*.*,
+                          data/Phase_1_CPD/exams/PilotExam-1-15/PilotExam-1-15.xml,
+                          data/Phase_1_CPD/exams/PilotExam-1-15/*.csv"
+                     dir="data">
+            </fileset>            
+            <fileset includes="data/Phase_1_CPD/exams/Final-Exam-1/tutorials/images/*.*,
+                          data/Phase_1_CPD/exams/Final-Exam-1/tutorials/images/Task_Tutorials/*.*,
+                          data/Phase_1_CPD/exams/Final-Exam-1/Final-Exam-1.xml,
+                          data/Phase_1_CPD/exams/Final-Exam-1/*.csv"
+                     dir="data">
+            </fileset>   
+               
+            <!-- Add the Phase 2 exams -->
+            <fileset includes="data/Phase_2_CPD/exams/Sample-Exam-1/*.png,
+                    data/Phase_2_CPD/exams/Sample-Exam-1/*.xml"
+                     dir="data">
+            </fileset>
+            <fileset includes="data/Phase_2_CPD/exams/Sample-Exam-2/*.png,
+                    data/Phase_2_CPD/exams/Sample-Exam-2/*.xml"
+                     dir="data">
+            </fileset>
+            <fileset includes="data/Phase_2_CPD/exams/Final-Exam-1/*.png,
+                    data/Phase_2_CPD/exams/Final-Exam-1/*.xml"
+                     dir="data">
+            </fileset>
+            <fileset includes="data/Phase_2_CPD/exams/tutorial/*.png,
+                    data/Phase_2_CPD/exams/tutorial/*.PNG"
+                     dir="data">
+            </fileset>
+        </jar>
+    </target>
+</project>
