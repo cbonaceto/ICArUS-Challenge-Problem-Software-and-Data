@@ -1,0 +1,1362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.1" targetNamespace="IcarusCPD_1"
+	xmlns:ns1="IcarusCPD_Base" xmlns:tns="IcarusCPD_1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:import namespace="IcarusCPD_Base" schemaLocation="IcarusBaseSchema.xsd" />
+
+	<xs:element name="PhaseFeedback_CPD1" type="tns:PhaseFeedback_CPD1" />
+
+	<xs:element name="TrialFeedback_CPD1" type="tns:TrialFeedback_CPD1" />
+
+	<xs:element name="IcarusEvaluation_CPD1" type="tns:IcarusEvaulation_CPD1" />
+
+	<xs:element name="IcarusTestTrial_CPD1" type="tns:IcarusTestTrial_CPD1" />
+
+	<xs:element name="IcarusTrialResponse_CPD1" type="tns:IcarusTrialResponse_CPD1" />
+
+	<xs:element name="TaskTestPhase" type="tns:TaskTestPhase" />
+
+	<xs:element name="TutorialPhase_CPD1" type="tns:TutorialPhase_CPD1" />
+
+	<xs:element name="Task_1_Phase" type="tns:Task_1_Phase" />
+
+	<xs:element name="Task_2_Phase" type="tns:Task_2_Phase" />
+
+	<xs:element name="Task_3_Phase" type="tns:Task_3_Phase" />
+
+	<xs:element name="Task_4_Phase" type="tns:Task_4_Phase" />
+
+	<xs:element name="Task_5_Phase" type="tns:Task_5_Phase" />
+
+	<xs:element name="Task_6_Phase" type="tns:Task_6_Phase" />
+
+	<xs:element name="Task_7_Phase" type="tns:Task_7_Phase" />
+
+	<xs:complexType name="PhaseFeedback_CPD1">
+		<xs:complexContent>
+			<xs:extension base="ns1:PhaseFeedback">
+				<xs:sequence>
+					<xs:element name="ProbabilitiesScore_s1" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="TroopAllocationScore_s2" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="TrialFeedback" type="tns:TrialFeedback_CPD1"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TrialFeedback_CPD1">
+		<xs:complexContent>
+			<xs:extension base="ns1:TrialFeedback">
+				<xs:sequence>
+					<xs:element name="GroundTruth" type="tns:GroundTruth"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseWellFormed" type="xs:boolean"
+						minOccurs="0" />
+					<xs:element name="NumCreditsAwarded" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="NumCreditsRemaining" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="NumCreditsUsed" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="ProbabilitiesScore_s1" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="TroopAllocationScore_s2" type="xs:double"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusEvaulation_CPD1">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusEvaluationBase">
+				<xs:sequence>
+					<xs:element name="ApplicationVersion" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="TutorialUrl" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="Tutorial" type="tns:TutorialPhase_CPD1"
+						minOccurs="0" />
+					<xs:element name="GridSize" type="tns:GridSize"
+						minOccurs="0" />
+					<xs:element name="ProbabilityRulesInstructions" type="tns:ProbabilityRulesInstructions"
+						minOccurs="0" />
+					<xs:element name="ProbabilityRules" type="tns:ProbabilityRules"
+						minOccurs="0" />
+					<xs:element name="ExamPhase" type="tns:TaskTestPhase"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GridSize">
+		<xs:sequence />
+		<xs:attribute name="gridWidth" type="xs:int" />
+		<xs:attribute name="gridHeight" type="xs:int" />
+		<xs:attribute name="milesPerGridUnit" type="xs:double" />
+		<xs:attribute name="bottomLeftLat" type="xs:double" />
+		<xs:attribute name="bottomLeftLon" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="ProbabilityRulesInstructions">
+		<xs:sequence>
+			<xs:element name="ProbabilityRulesPage" type="tns:ProbabilityRulesPage"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ProbabilityRulesPage">
+		<xs:complexContent>
+			<xs:extension base="ns1:InstructionsPage">
+				<xs:sequence />
+				<xs:attribute name="intType" type="tns:IntType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ProbabilityRules">
+		<xs:sequence>
+			<xs:element name="HumintRules" type="tns:HumintRules"
+				minOccurs="0" />
+			<xs:element name="ImintRules" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ImintRule" type="tns:ImintRule"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="MovintRules" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MovintRule" type="tns:MovintRule"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SigintRules" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SigintRule" type="tns:SigintRule"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SocintRules" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SocintRule" type="tns:SocintRule"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WaveintRules" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WaveintRule" type="tns:WaveintRule"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="HumintRules">
+		<xs:sequence />
+		<xs:attribute name="peakCenter_b" type="xs:double" use="required" />
+		<xs:attribute name="peakHeight_a" type="xs:double" use="required" />
+		<xs:attribute name="sigma_c" type="xs:double" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="ImintRule">
+		<xs:sequence />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="attackLikelihood_government" type="xs:double" />
+		<xs:attribute name="attackLikelihood_military" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="MovintRule">
+		<xs:sequence />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="attackLikelihood_denseTraffic" type="xs:double" />
+		<xs:attribute name="attackLikelihood_sparseTraffic" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="SigintRule">
+		<xs:sequence />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="attackLikelihoodProbed_chatter" type="xs:double" />
+		<xs:attribute name="attackLikelihoodProbed_silent" type="xs:double" />
+		<xs:attribute name="attackLikelihoodNotProbed_chatter"
+			type="xs:double" />
+		<xs:attribute name="attackLikelihoodNotProbed_silent"
+			type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="SocintRule">
+		<xs:sequence />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="attackLikelihood_inRegion" type="xs:double" />
+		<xs:attribute name="attackLikelihood_outsideRegion" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="WaveintRule">
+		<xs:sequence />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="attackLikelihood_responsibleForLastAttack"
+			type="xs:double" />
+		<xs:attribute name="attackLikelihood_notResponsibleForLastAttack"
+			type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="TaskTestPhase" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusTestPhase">
+				<xs:sequence>
+					<xs:element name="ApplicationVersion" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="TutorialUrl" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="Pause" type="ns1:Pause" minOccurs="0" />
+					<xs:element name="TaskFeedback" type="tns:PhaseFeedback_CPD1"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTestTrial_CPD1" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusTestTrial">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_2_3_ProbeTrialBase"
+		abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTestTrial_CPD1">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_ProbeTrial">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_ProbeTrialBase">
+				<xs:sequence>
+					<xs:element name="AttackDispersionParameters" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Parameters"
+									type="tns:Task_1_2_3_AttackDispersionParameters" minOccurs="0"
+									maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="GroupProbe" type="tns:AttackLocationProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="TroopSelectionProbe" type="tns:TroopSelectionProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="GroundTruth" type="tns:GroundTruth"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseProbe" type="tns:SurpriseReportProbe"
+						minOccurs="0" />
+					<xs:element name="TrialResponse" type="tns:Task_1_ProbeTrialResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_2_3_AttackDispersionParameters">
+		<xs:sequence>
+			<xs:element name="CenterLocation" type="tns:GridLocation2D"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="baseRate" type="xs:double" use="required" />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="sigmaX" type="xs:double" />
+		<xs:attribute name="sigmaY" type="xs:double" />
+		<xs:attribute name="theta" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="AttackLocationProbe_MultiGroup">
+		<xs:complexContent>
+			<xs:extension base="tns:MultiGroupProbe">
+				<xs:sequence>
+					<xs:element name="AttackLocation" type="tns:GridLocation2D"
+						minOccurs="0" />
+					<xs:element name="Groups" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:GroupType" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MultiGroupProbe" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TrialPartProbe" abstract="true">
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="GridLocation2D">
+		<xs:sequence />
+		<xs:attribute name="locationId" type="xs:string" />
+		<xs:attribute name="x" type="xs:double" />
+		<xs:attribute name="y" type="xs:double" />
+		<xs:attribute name="lat" type="xs:double" />
+		<xs:attribute name="lon" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="MultiLocationProbe" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AttackLocationProbe_MultiLocation">
+		<xs:complexContent>
+			<xs:extension base="tns:MultiLocationProbe">
+				<xs:sequence>
+					<xs:element name="AttackGroup" type="tns:GroupType"
+						minOccurs="0" />
+					<xs:element name="Locations" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TroopAllocationProbe_MultiLocation">
+		<xs:complexContent>
+			<xs:extension base="tns:MultiLocationProbe">
+				<xs:sequence>
+					<xs:element name="Locations" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SurpriseReportProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence />
+				<xs:attribute name="minSurprise" type="xs:int" />
+				<xs:attribute name="maxSurprise" type="xs:int" />
+				<xs:attribute name="increment" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TroopAllocationProbe_MultiGroup">
+		<xs:complexContent>
+			<xs:extension base="tns:MultiGroupProbe">
+				<xs:sequence>
+					<xs:element name="Groups" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:GroupType" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GroupCirclesProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:MultiGroupProbe">
+				<xs:sequence>
+					<xs:element name="Groups" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:GroupType" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GroupCentersProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:MultiGroupProbe">
+				<xs:sequence>
+					<xs:element name="Groups" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:GroupType" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TroopSelectionProbe_MultiGroup">
+		<xs:complexContent>
+			<xs:extension base="tns:MultiGroupProbe">
+				<xs:sequence>
+					<xs:element name="Groups" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:GroupType" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GroundTruth">
+		<xs:sequence />
+		<xs:attribute name="responsibleGroup" type="tns:GroupType" />
+		<xs:attribute name="attackLocationId" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_ProbeTrialResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_ProbeTrialResponseBase">
+				<xs:sequence>
+					<xs:element name="GroupResponse"
+						type="tns:AttackLocationProbeResponse_MultiGroup" minOccurs="0" />
+					<xs:element name="TroopSelectionResponse" type="tns:TroopSelectionResponse_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseResponse" type="tns:SurpriseReportProbeResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_2_3_ProbeTrialResponseBase"
+		abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTrialResponse_CPD1">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTrialResponse_CPD1">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusTrialResponse">
+				<xs:sequence>
+					<xs:element name="ResponseFeedback" type="tns:TrialFeedback_CPD1"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AttackLocationProbeResponse_MultiGroup">
+		<xs:complexContent>
+			<xs:extension base="tns:ProbabilityProbeTrialPartResponse">
+				<xs:sequence>
+					<xs:element name="GroupAttackProbability" type="tns:GroupAttackProbabilityResponse"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="locationId" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ProbabilityProbeTrialPartResponse"
+		abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="NormativeProbsCumulative" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="NormativeProbsIncremental" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ProbabilitiesScore_s1" type="xs:double"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TrialPartResponse" abstract="true">
+		<xs:sequence />
+		<xs:attribute name="trialPartTime_ms" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="GroupAttackProbabilityResponse">
+		<xs:sequence />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="locationId" type="xs:string" />
+		<xs:attribute name="probability" type="xs:double" />
+		<xs:attribute name="rawProbability" type="xs:double" />
+		<xs:attribute name="time_ms" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="AttackLocationProbeResponse_MultiLocation">
+		<xs:complexContent>
+			<xs:extension base="tns:ProbabilityProbeTrialPartResponse">
+				<xs:sequence>
+					<xs:element name="GroupAttackProbability" type="tns:GroupAttackProbabilityResponse"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="Group" type="tns:GroupType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GroupCentersProbeResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="GroupCenter" type="tns:GroupCenterResponse"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GroupCenterResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:GroupCenter">
+				<xs:sequence />
+				<xs:attribute name="time_ms" type="xs:long" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GroupCenter">
+		<xs:complexContent>
+			<xs:extension base="tns:Feature">
+				<xs:sequence>
+					<xs:element name="CenterLocation" type="tns:GridLocation2D"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="group" type="tns:GroupType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Feature">
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="GroupCirclesProbeResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="GroupCircle" type="tns:GroupCircle"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GroupCircle">
+		<xs:sequence>
+			<xs:element name="CenterLocation" type="tns:GridLocation2D"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="radius" type="xs:double" />
+		<xs:attribute name="time_ms" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="SurpriseReportProbeResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence />
+				<xs:attribute name="surprise" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_4_TrialResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTrialResponse_CPD1">
+				<xs:sequence>
+					<xs:element name="LocationResponse"
+						type="tns:AttackLocationProbeResponse_MultiLocation" minOccurs="0" />
+					<xs:element name="LocationResponse_afterINT"
+						type="tns:Task_4_AttackLocationProbeResponseAfterINT" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xs:element name="TroopAllocationResponse"
+						type="tns:TroopAllocationResponse_MultiLocation" minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseResponse" type="tns:SurpriseReportProbeResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_4_AttackLocationProbeResponseAfterINT">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="INTLayerShown" type="tns:INTLayerData"
+						minOccurs="0" />
+					<xs:element name="LocationResponse"
+						type="tns:AttackLocationProbeResponse_MultiLocation" minOccurs="0" />
+					<!-- <xs:element name="SurpriseReportResponse" type="tns:SurpriseReportProbeResponse" 
+						minOccurs="0" /> -->
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="INTLayerData">
+		<xs:sequence>
+			<xs:element name="LayerType" type="tns:IntLayer"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="userSelected" type="xs:boolean" />
+		<xs:attribute name="layerSelectionTime_ms" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="IntLayer" abstract="true">
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="ImintLayer">
+		<xs:complexContent>
+			<xs:extension base="tns:IntLayer">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MovintLayer">
+		<xs:complexContent>
+			<xs:extension base="tns:IntLayer">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SigintLayer">
+		<xs:complexContent>
+			<xs:extension base="tns:IntLayer">
+				<xs:sequence>
+					<xs:element name="Group" type="tns:GroupType" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SocintLayer">
+		<xs:complexContent>
+			<xs:extension base="tns:IntLayer">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TroopAllocationResponse_MultiLocation">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="TroopAllocationScore_s2" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="TroopAllocation" type="tns:TroopAllocation"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TroopAllocation">
+		<xs:sequence />
+		<xs:attribute name="group" type="tns:GroupType" />
+		<xs:attribute name="locationId" type="xs:string" />
+		<xs:attribute name="allocation" type="xs:double" />
+		<xs:attribute name="allocation_raw" type="xs:double" />
+		<xs:attribute name="time_ms" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="Task_5_6_TrialResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTrialResponse_CPD1">
+				<xs:sequence>
+					<xs:element name="InitialProbabilities" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="GroupResponse_afterINT"
+						type="tns:Task_5_6_AttackLocationProbeResponseAfterINT" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xs:element name="TroopAllocationResponse"
+						type="tns:TroopAllocationResponse_MultiGroup" minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseResponse" type="tns:SurpriseReportProbeResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_5_6_AttackLocationProbeResponseAfterINT">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="INTLayerExpectedUtilities" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ExpectedUtility" type="tns:INTLayerExpectedUtility"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="INTLayerShown" type="tns:INTLayerData"
+						minOccurs="0" />
+					<xs:element name="GroupResponse"
+						type="tns:AttackLocationProbeResponse_MultiGroup" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="INTLayerExpectedUtility">
+		<xs:sequence>
+			<xs:element name="LayerType" type="tns:IntLayer"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="expectedUtility_cumulative" type="xs:double" />
+		<xs:attribute name="expectedUtility_incremental" type="xs:double" />
+		<xs:attribute name="expectedUtility_subjectProbs" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="TroopAllocationResponse_MultiGroup">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="TroopAllocationScore_s2" type="xs:double"
+						minOccurs="0" />
+					<xs:element name="TroopAllocation" type="tns:TroopAllocation"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_7_TrialResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTrialResponse_CPD1">
+				<xs:sequence>
+					<xs:element name="GroupResponse"
+						type="tns:AttackLocationProbeResponse_MultiGroup" minOccurs="0" />
+					<xs:element name="LocationResponse"
+						type="tns:AttackLocationProbeResponse_MultiLocation" minOccurs="0" />
+					<xs:element name="TroopAllocationResponse"
+						type="tns:TroopAllocationResponse_MultiLocation" minOccurs="0" />
+					<xs:element name="LayerPurchaseTime_ms" type="xs:long"
+						minOccurs="0" />
+					<xs:element name="INTLayerPurchase" type="tns:Task_7_INTLayerPurchase"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_7_INTLayerPurchase">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="INTLayer" type="tns:IntLayer"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="costCredits" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_2_ProbeTrialResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_ProbeTrialResponseBase">
+				<xs:sequence>
+					<xs:element name="GroupCirclesResponse" type="tns:GroupCirclesProbeResponse"
+						minOccurs="0" />
+					<xs:element name="GroupResponse"
+						type="tns:AttackLocationProbeResponse_MultiGroup" minOccurs="0" />
+					<xs:element name="TroopSelectionResponse" type="tns:TroopSelectionResponse_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseResponse" type="tns:SurpriseReportProbeResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_3_ProbeTrialResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_ProbeTrialResponseBase">
+				<xs:sequence>
+					<xs:element name="CentersToAttackDistances" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="GroupCentersResponse" type="tns:GroupCentersProbeResponse"
+						minOccurs="0" />
+					<xs:element name="GroupResponse"
+						type="tns:AttackLocationProbeResponse_MultiGroup" minOccurs="0" />
+					<xs:element name="TroopSelectionResponse" type="tns:TroopSelectionResponse_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseResponse" type="tns:SurpriseReportProbeResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TroopSelectionResponse_MultiGroup">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartResponse">
+				<xs:sequence>
+					<xs:element name="TroopAllocationScore_s2" type="xs:double"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="group" type="tns:GroupType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_2_ProbeTrial">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_ProbeTrialBase">
+				<xs:sequence>
+					<xs:element name="AttackDispersionParameters" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Parameters"
+									type="tns:Task_1_2_3_AttackDispersionParameters" minOccurs="0"
+									maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="GroupCirclesProbe" type="tns:GroupCirclesProbe"
+						minOccurs="0" />
+					<xs:element name="GroupProbe" type="tns:AttackLocationProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="TroopSelectionProbe" type="tns:TroopSelectionProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="GroundTruth" type="tns:GroundTruth"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseProbe" type="tns:SurpriseReportProbe"
+						minOccurs="0" />
+					<xs:element name="TrialResponse" type="tns:Task_2_ProbeTrialResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_3_ProbeTrial">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_ProbeTrialBase">
+				<xs:sequence>
+					<xs:element name="AttackDispersionParameters" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Parameters"
+									type="tns:Task_1_2_3_AttackDispersionParameters" minOccurs="0"
+									maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="CentersToAttackDistances" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="GroupCentersProbe" type="tns:GroupCentersProbe"
+						minOccurs="0" />
+					<xs:element name="GroupProbe" type="tns:AttackLocationProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="TroopSelectionProbe" type="tns:TroopSelectionProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="GroundTruth" type="tns:GroundTruth"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseProbe" type="tns:SurpriseReportProbe"
+						minOccurs="0" />
+					<xs:element name="TrialResponse" type="tns:Task_3_ProbeTrialResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_4_Trial">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_4_5_6_TrialBase">
+				<xs:sequence>
+					<xs:element name="CenterToAttackDistances" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="LocationProbe" type="tns:AttackLocationProbe_MultiLocation"
+						minOccurs="0" />
+					<xs:element name="INTLayers" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="INTLayer"
+									type="tns:Task_4_IntLayerPresentationProbe" minOccurs="0"
+									maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="TroopAllocationProbe"
+						type="tns:TroopAllocationProbe_MultiLocation" minOccurs="0" />
+					<xs:element name="GroundTruth" type="tns:GroundTruth"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseProbe" type="tns:SurpriseReportProbe"
+						minOccurs="0" />
+					<xs:element name="TrialResponse" type="tns:Task_4_TrialResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_4_5_6_TrialBase" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTestTrial_CPD1">
+				<xs:sequence>
+					<xs:element name="FeatureVectorFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="DistanceFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="RoadsFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="RegionsFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_4_IntLayerPresentationProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:INTLayerPresentationProbeBase">
+				<xs:sequence>
+					<xs:element name="LocationProbe" type="tns:AttackLocationProbe_MultiLocation"
+						minOccurs="0" />
+					<!-- <xs:element name="SurpriseProbe" type="tns:SurpriseReportProbe" 
+						minOccurs="0" /> -->
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="INTLayerPresentationProbeBase"
+		abstract="true">
+		<xs:sequence>
+			<xs:element name="LayerType" type="tns:IntLayer"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="FeatureVectorFileDescriptor">
+		<xs:sequence />
+		<xs:attribute name="cSVFileTimeStamp" type="xs:dateTime" />
+		<xs:attribute name="featureVectorUrl_CSV" type="xs:string" />
+		<xs:attribute name="featureVectorUrl_KML" type="xs:string" />
+		<xs:attribute name="kMLFileTimeStamp" type="xs:dateTime" />
+	</xs:complexType>
+
+	<xs:complexType name="Task_5_Trial">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_4_5_6_TrialBase">
+				<xs:sequence>
+					<xs:element name="CentersToAttackDistances" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="InitialHumintReport" type="tns:HumintReport"
+						minOccurs="0" />
+					<xs:element name="INTLayers" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="INTLayer"
+									type="tns:Task_5_6_IntLayerPresentationProbe" minOccurs="0"
+									maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="TroopAllocationProbe" type="tns:TroopAllocationProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="GroundTruth" type="tns:GroundTruth"
+						minOccurs="0" />
+					<xs:element name="GroundTruthSurpriseProbe" type="tns:SurpriseReportProbe"
+						minOccurs="0" />
+					<xs:element name="TrialResponse" type="tns:Task_5_6_TrialResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="HumintReport">
+		<xs:sequence>
+			<xs:element name="Groups" minOccurs="0">
+				<xs:simpleType>
+					<xs:list itemType="tns:GroupType" />
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Probabilities" minOccurs="0">
+				<xs:simpleType>
+					<xs:list itemType="xs:double" />
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Task_5_6_IntLayerPresentationProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:INTLayerPresentationProbeBase">
+				<xs:sequence>
+					<xs:element name="GroupProbe" type="tns:AttackLocationProbe_MultiGroup"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_6_Trial">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_5_Trial">
+				<xs:sequence />
+				<xs:attribute name="numLayersToShow" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_7_Trial">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTestTrial_CPD1">
+				<xs:sequence>
+					<xs:element name="FeatureVectorFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="GroupProbe" type="tns:AttackLocationProbe_MultiGroup"
+						minOccurs="0" />
+					<xs:element name="LocationProbe" type="tns:AttackLocationProbe_MultiLocation"
+						minOccurs="0" />
+					<xs:element name="TroopAllocationProbe"
+						type="tns:TroopAllocationProbe_MultiLocation" minOccurs="0" />
+					<xs:element name="ResponsibleGroupShown" type="xs:boolean"
+						minOccurs="0" />
+					<xs:element name="GroundTruth" type="tns:GroundTruth"
+						minOccurs="0" />
+					<xs:element name="INTLayers" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="INTLayer"
+									type="tns:Task_7_IntLayerPresentationProbe" minOccurs="0"
+									maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="TrialResponse" type="tns:Task_7_TrialResponse"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_7_IntLayerPresentationProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:INTLayerPresentationProbeBase">
+				<xs:sequence />
+				<xs:attribute name="costCredits" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_2_3_PhaseBase" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:TaskTestPhase">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_2_3_TrialBlockBase"
+		abstract="true">
+		<xs:sequence>
+			<xs:element name="FeatureVectorFile" type="tns:FeatureVectorFileDescriptor"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="trialBlockNum" type="xs:int" />
+		<xs:attribute name="numPresentationTrials" type="xs:int" />
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_TrialBlock">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_TrialBlockBase">
+				<xs:sequence>
+					<xs:element name="GroupAttackPresentationTimes"
+						minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:long" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ProbeTrial" type="tns:Task_1_ProbeTrial"
+						minOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_2_TrialBlock">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_TrialBlockBase">
+				<xs:sequence>
+					<xs:element name="GroupAttackPresentationTimes"
+						minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:long" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ProbeTrial" type="tns:Task_2_ProbeTrial"
+						minOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_3_TrialBlock">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_TrialBlockBase">
+				<xs:sequence>
+					<xs:element name="GroupAttackPresentationTimes"
+						minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:long" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ProbeTrial" type="tns:Task_3_ProbeTrial"
+						minOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TutorialPhase_CPD1">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusTutorialPhase">
+				<xs:sequence>
+					<xs:element name="ProbabilityEntryGroups" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:GroupType" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ProbabilityEntryTitles" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="AutoNormalizeProbabilities" type="xs:boolean"
+						minOccurs="0" />
+					<xs:element name="TutorialPages" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="TutorialPage" type="tns:TutorialPage"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TutorialPage">
+		<xs:complexContent>
+			<xs:extension base="ns1:InstructionsPage">
+				<xs:sequence>
+					<xs:element name="ProbabilityEntryGroups" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:GroupType" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ProbabilityEntryTitles" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="enableBackButton" type="xs:boolean" />
+				<xs:attribute name="inputPanelType" type="tns:TutorialPageInputType" />
+				<xs:attribute name="probabilityPanelEditable" type="xs:boolean" />
+				<xs:attribute name="probabilityType" type="tns:TutorialPageProbabilityType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_1_Phase">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_PhaseBase">
+				<xs:sequence>
+					<xs:element name="TrialBlock" type="tns:Task_1_TrialBlock"
+						minOccurs="1" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_2_Phase">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_PhaseBase">
+				<xs:sequence>
+					<xs:element name="TrialBlock" type="tns:Task_2_TrialBlock"
+						minOccurs="1" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_3_Phase">
+		<xs:complexContent>
+			<xs:extension base="tns:Task_1_2_3_PhaseBase">
+				<xs:sequence>
+					<xs:element name="RoadsFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="TrialBlock" type="tns:Task_3_TrialBlock"
+						minOccurs="1" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_4_Phase">
+		<xs:complexContent>
+			<xs:extension base="tns:TaskTestPhase">
+				<xs:sequence>
+					<xs:element name="Trial" type="tns:Task_4_Trial"
+						minOccurs="1" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="reverseLayerOrder" type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_5_Phase">
+		<xs:complexContent>
+			<xs:extension base="tns:TaskTestPhase">
+				<xs:sequence>
+					<xs:element name="Trial" type="tns:Task_5_Trial"
+						minOccurs="1" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="reverseLayerOrder" type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_6_Phase">
+		<xs:complexContent>
+			<xs:extension base="tns:TaskTestPhase">
+				<xs:sequence>
+					<xs:element name="Trial" type="tns:Task_6_Trial"
+						minOccurs="1" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="reverseLayerOrder" type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Task_7_Phase">
+		<xs:complexContent>
+			<xs:extension base="tns:TaskTestPhase">
+				<xs:sequence>
+					<xs:element name="FeatureVectorFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="RoadsFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="RegionsFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="InitialResponsibleGroup" type="tns:GroupType"
+						minOccurs="0" />
+					<xs:element name="InitialCredits" type="xs:int"
+						minOccurs="0" />
+					<xs:element name="CorrectPredictionCredits" type="xs:int"
+						minOccurs="0" />
+					<xs:element name="Trial" type="tns:Task_7_Trial"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="reverseLayerOrder" type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:simpleType name="TutorialPageInputType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ProbabilityPanel" />
+			<xs:enumeration value="TroopSelectionPanel" />
+			<xs:enumeration value="TroopAllocationPanel" />
+			<xs:enumeration value="SurprisePanel" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TutorialPageProbabilityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Initial" />
+			<xs:enumeration value="Current" />
+			<xs:enumeration value="Normalized" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GroupType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="X" />
+			<xs:enumeration value="O" />
+			<xs:enumeration value="A" />
+			<xs:enumeration value="B" />
+			<xs:enumeration value="C" />
+			<xs:enumeration value="D" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="probabilityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Initial" />
+			<xs:enumeration value="Current" />
+			<xs:enumeration value="Normalized" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="IntType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HUMINT" />
+			<xs:enumeration value="IMINT" />
+			<xs:enumeration value="MOVINT" />
+			<xs:enumeration value="SIGINT" />
+			<xs:enumeration value="SOCINT" />
+			<xs:enumeration value="WAVEINT" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

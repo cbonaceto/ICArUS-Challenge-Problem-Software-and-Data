@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.2" targetNamespace="IcarusCPD_2"
+	xmlns:ns2="IcarusCPD_1" xmlns:ns1="IcarusCPD_Base" xmlns:tns="IcarusCPD_2"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:import namespace="IcarusCPD_Base" schemaLocation="IcarusBaseSchema.xsd" />
+
+	<xs:import namespace="IcarusCPD_1" schemaLocation="IcarusCPD_1_Schema.xsd" />
+
+	<xs:element name="AreaOfInterest" type="tns:AreaOfInterest" />
+
+	<xs:element name="BlueLocation" type="tns:BlueLocation" />
+
+	<xs:element name="Building" type="tns:Building" />
+
+	<xs:element name="FeatureContainer" type="tns:FeatureContainer" />
+
+	<xs:element name="IcarusExam_Phase2" type="tns:IcarusExam_Phase2" />
+
+	<xs:element name="IcarusTestTrial_Phase2" type="tns:IcarusTestTrial_Phase2" />
+
+	<xs:element name="Mission_1_2_3" type="tns:Mission_1_2_3" />
+
+	<xs:element name="Mission_1_2_3_Trial" type="tns:Mission_1_2_3_Trial" />
+
+	<xs:element name="Mission_4_5_6" type="tns:Mission_4_5_6" />
+
+	<xs:element name="Mission_4_5_6_Trial" type="tns:Mission_4_5_6_Trial" />
+
+	<xs:element name="Mission_Phase2" type="tns:Mission_Phase2" />
+
+	<xs:element name="Region" type="tns:Region" />
+
+	<xs:element name="Road" type="tns:Road" />
+
+	<xs:element name="Terrain" type="tns:Terrain" />
+
+	<xs:element name="TrialFeedback_Phase2" type="tns:TrialFeedback_Phase2" />
+
+	<xs:element name="TutorialPhase_Phase2" type="tns:TutorialPhase_Phase2" />
+
+	<xs:complexType name="IcarusExam_Phase2">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusEvaluationBase">
+				<xs:sequence>
+					<xs:element name="ApplicationVersion" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="Tutorial" type="tns:TutorialPhase_Phase2"
+						minOccurs="0" />
+					<xs:element name="BlueBook" type="tns:BlueBook"
+						minOccurs="0" />
+					<xs:element name="PayoffMatrix" type="tns:PayoffMatrix"
+						minOccurs="0" />
+					<xs:element name="SigintReliabilities" type="tns:SigintReliability"
+						minOccurs="0" />
+					<xs:element name="Mission" type="tns:Mission_Phase2"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="BlueScore" type="xs:double" />
+				<xs:attribute name="RedScore" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TutorialPhase_Phase2">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusTutorialPhase">
+				<xs:sequence>
+					<xs:element name="TutorialPages" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="TutorialPage" type="tns:TutorialPage_Phase2"
+									minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TutorialPage_Phase2">
+		<xs:complexContent>
+			<xs:extension base="ns1:InstructionsPage">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TrialFeedback_Phase2">
+		<xs:complexContent>
+			<xs:extension base="ns1:TrialFeedback">
+				<xs:sequence>
+					<xs:element name="BlueAction" type="tns:BlueAction"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="RedAction" type="tns:RedAction"
+						minOccurs="0" />
+					<xs:element name="ShowdownWinner" type="tns:ShowdownWinner"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="bluePointsGained" type="xs:double" />
+				<xs:attribute name="redPointsGained" type="xs:double" />
+				<xs:attribute name="blueScore" type="xs:double" />
+				<xs:attribute name="redScore" type="xs:double" />
+				<xs:attribute name="batchPlotsRemaining" type="xs:int" />
+				<xs:attribute name="batchPlotCreated" type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="BlueAction">
+		<xs:sequence />
+		<xs:attribute name="action" type="tns:BlueActionType" />
+		<xs:attribute name="locationId" type="xs:string" />
+		<xs:attribute name="locationIndex" type="xs:int" />
+	</xs:complexType>
+
+	<xs:complexType name="RedAction">
+		<xs:sequence />
+		<xs:attribute name="action" type="tns:RedActionType" />
+		<xs:attribute name="locationId" type="xs:string" />
+		<xs:attribute name="locationIndex" type="xs:int" />
+	</xs:complexType>
+
+	<xs:complexType name="ShowdownWinner">
+		<xs:sequence />
+		<xs:attribute name="locationId" type="xs:string" />
+		<xs:attribute name="locationIndex" type="xs:int" />
+		<xs:attribute name="winner" type="tns:PlayerType" />
+	</xs:complexType>
+
+	<xs:complexType name="Mission_Phase2" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusTestPhase">
+				<xs:sequence>
+					<xs:element name="ApplicationVersion" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="Pause" type="ns1:Pause" minOccurs="0" />
+					<xs:element name="AoiFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="BlueLocationsFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="missionType" type="tns:MissionType"
+					use="required" />
+				<xs:attribute name="blueScore" type="xs:double" />
+				<xs:attribute name="redScore" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="FeatureVectorFileDescriptor">
+		<xs:sequence />
+		<xs:attribute name="fileUrl" type="xs:string" />
+		<xs:attribute name="versionId" type="xs:string" />
+		<xs:attribute name="timeStamp" type="xs:dateTime" />
+	</xs:complexType>
+
+	<xs:complexType name="Mission_1_2_3">
+		<xs:complexContent>
+			<xs:extension base="tns:Mission_Phase2">
+				<xs:sequence>
+					<xs:element name="RedTactic" type="tns:RedTacticType"
+						minOccurs="0" />
+					<xs:element name="Trial" type="tns:Mission_1_2_3_Trial"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Mission_1_2_3_Trial">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTestTrial_Phase2">
+				<xs:sequence>
+					<xs:element name="OsintPresentation" type="tns:OsintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="ImintPresentation" type="tns:ImintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="MostLikelyRedTacticProbe" type="tns:MostLikelyRedTacticProbe"
+						minOccurs="0" />
+					<xs:element name="AttackPropensityProbe_Pp" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="HumintPresentation" type="tns:HumintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="AttackProbabilityProbe_Ppc" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="SigintSelectionProbe" type="tns:SigintSelectionProbe"
+						minOccurs="0" />
+					<xs:element name="SigintPresentation" type="tns:SigintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="AttackProbabilityProbe_Pt" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="AttackProbabilityProbe_Ptpc" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="BlueActionSelection" type="tns:BlueActionSelectionProbe"
+						minOccurs="0" />
+					<xs:element name="RedActionSelection" type="tns:RedActionSelectionProbe"
+						minOccurs="0" />
+					<xs:element name="ShowdownWinner" type="tns:ShowdownWinner"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IcarusTestTrial_Phase2" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ns1:IcarusTestTrial">
+				<xs:sequence>
+					<xs:element name="ResponseGenerator" type="ns1:ResponseGenerator"
+						minOccurs="0" />
+					<xs:element name="ResponseFeedback" type="tns:TrialFeedback_Phase2"
+						minOccurs="0" />
+					<xs:element name="Humint" type="tns:HumintDatum"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="startTime" type="xs:dateTime" />
+				<xs:attribute name="endTime" type="xs:dateTime" />
+				<xs:attribute name="trialTime_ms" type="xs:long" />
+				<xs:attribute name="attackHistoryTrial" type="xs:boolean" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="OsintPresentationProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:IntPresentationProbe">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IntPresentationProbe" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence>
+					<xs:element name="LocationIds" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="LocationIndexes" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:int" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="TrialPartProbe" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ns2:TrialPartResponse">
+				<xs:sequence />
+				<xs:attribute name="dataProvidedInFeedback" type="xs:boolean" />
+				<xs:attribute name="dataProvidedToParticipant" type="xs:boolean" />
+				<xs:attribute name="name" type="xs:string" />
+				<xs:attribute name="optional" type="xs:boolean" />
+				<xs:attribute name="type" type="tns:TrialPartProbeType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="BlueActionSelectionProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence>
+					<xs:element name="Datum" type="tns:DatumIdentifier"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="BlueAction" type="tns:BlueAction"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="NormativeParticipantBlueAction" type="tns:BlueAction"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="NormativeBayesianBlueAction" type="tns:BlueAction"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="expectedUtility" type="xs:double" />
+				<xs:attribute name="normativeParticipantExpectedUtility"
+					type="xs:double" />
+				<xs:attribute name="normativeBayesianExpectedUtility"
+					type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="DatumIdentifier">
+		<xs:sequence />
+		<xs:attribute name="datumId" type="xs:string" />
+		<xs:attribute name="datumType" type="tns:DatumType" />
+		<xs:attribute name="locationId" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="AbstractRedTacticsProbe" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence>
+					<xs:element name="BatchPlotProbe" type="tns:BatchPlotProbe"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="BatchPlotProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence>
+					<xs:element name="BlueLocationsClicked" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="ButtonPressSequence" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:BatchPlotProbeButtonType" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PreviousTrials" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:int" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="blueLocationsPerTrial" type="xs:int" />
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="numPreviousTrialsSelected" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="MostLikelyRedTacticProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractRedTacticsProbe">
+				<xs:sequence>
+					<xs:element name="RedTactics" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="tns:RedTacticType" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="MostLikelyRedTactic" type="tns:RedTacticType"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RedTacticProbabilityReportProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractRedTacticsProbe">
+				<xs:sequence>
+					<xs:element name="Datum" type="tns:DatumIdentifier"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="AdjustmentSequence" type="tns:ItemAdjustment"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Probability" type="tns:RedTacticProbability"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="targetSum" type="xs:double" />
+				<xs:attribute name="normalizationConstraint" type="tns:NormalizationConstraintType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RedTacticProbability">
+		<xs:complexContent>
+			<xs:extension base="tns:Probability">
+				<xs:sequence />
+				<xs:attribute name="redTactic" type="tns:RedTacticType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Probability">
+		<xs:sequence />
+		<xs:attribute name="normativeProbability" type="xs:double" />
+                <xs:attribute name="normativeIncrementalProbability" type="xs:double" />                
+		<xs:attribute name="probability" type="xs:double" />
+		<xs:attribute name="rawProbability" type="xs:double" />
+		<xs:attribute name="time_ms" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="AttackProbability">
+		<xs:complexContent>
+			<xs:extension base="tns:Probability">
+				<xs:sequence />
+				<xs:attribute name="locationId" type="xs:string" />
+				<xs:attribute name="locationIndex" type="xs:int" />
+				<xs:attribute name="redAction" type="tns:RedActionType" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ItemAdjustment">
+		<xs:sequence />
+		<xs:attribute name="index" type="xs:int" />
+		<xs:attribute name="timeStamp" type="xs:long" />
+	</xs:complexType>
+
+	<xs:complexType name="RedTacticsChangesProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractRedTacticsProbe">
+				<xs:sequence>
+					<xs:element name="InitialRedTactics" type="tns:RedTacticParameters"
+						minOccurs="0" />
+					<xs:element name="RedTacticsChange" type="tns:RedTacticsChange"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="dataConsidered" type="tns:RedTacticConsiderationData" />
+				<xs:attribute name="minNumRedTacticsChanges" type="xs:int" />
+				<xs:attribute name="maxNumRedTacticsChanges" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RedTacticParameters">
+		<xs:sequence>
+			<xs:element name="AttackProbabilities" minOccurs="0">
+				<xs:simpleType>
+					<xs:list itemType="xs:double" />
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="dataConsidered" type="tns:RedTacticConsiderationData" />
+		<xs:attribute name="high_P_Threshold" type="xs:double" />
+		<xs:attribute name="large_U_Threshold" type="xs:int" />
+	</xs:complexType>
+
+	<xs:complexType name="RedTacticsChange">
+		<xs:complexContent>
+			<xs:extension base="tns:RedTacticParameters">
+				<xs:sequence />
+				<xs:attribute name="trialNum" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ProbabilityReportProbe" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence>
+					<xs:element name="Datum" type="tns:DatumIdentifier"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="AdjustmentSequence" type="tns:ItemAdjustment"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="normalizationConstraint" type="tns:NormalizationConstraintType" />
+				<xs:attribute name="targetSum" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AttackProbabilityReportProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:ProbabilityReportProbe">
+				<xs:sequence>
+					<xs:element name="Probability" type="tns:AttackProbability"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RedActionSelectionProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:TrialPartProbe">
+				<xs:sequence>
+					<xs:element name="RedAction" type="tns:RedAction"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="HumintPresentationProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:IntPresentationProbe">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ImintPresentationProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:IntPresentationProbe">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SigintPresentationProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:IntPresentationProbe">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SigintSelectionProbe">
+		<xs:complexContent>
+			<xs:extension base="tns:SigintPresentationProbe">
+				<xs:sequence>
+					<xs:element name="NormativeBayesianLocationIds"
+						minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="NormativeParticipantLocationIds"
+						minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SelectedLocationIds" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:string" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="numSigintSelections" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="HumintDatum">
+		<xs:complexContent>
+			<xs:extension base="tns:IntDatum">
+				<xs:sequence>
+					<xs:element name="numTrialsSinceLastAttack" type="xs:int"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="redCapability_Pc" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="IntDatum" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractDatum">
+				<xs:sequence />
+				<xs:attribute name="locationId" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AbstractDatum" abstract="true">
+		<xs:sequence />
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="name" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="SigintReliability">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractDatum">
+				<xs:sequence>
+					<xs:element name="SigintReliabilityInstructions" type="ns1:InstructionsPage"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="chatterLikelihood_attack" type="xs:double" />
+				<xs:attribute name="chatterLikelihood_noAttack" type="xs:double" />
+				<xs:attribute name="silenceLikelihood_attack" type="xs:double" />
+				<xs:attribute name="silenceLikelihood_noAttack" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="ImintDatum">
+		<xs:complexContent>
+			<xs:extension base="tns:IntDatum">
+				<xs:sequence />
+				<xs:attribute name="density" type="xs:double" />
+				<xs:attribute name="radius_miles" type="xs:double" />
+				<xs:attribute name="opportunity" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="OsintDatum">
+		<xs:complexContent>
+			<xs:extension base="tns:IntDatum">
+				<xs:sequence>
+					<xs:element name="BlueRegionCoordinate" type="tns:GeoCoordinate"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="radius" type="xs:double" />
+				<xs:attribute name="vulnerability" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeoCoordinate">
+		<xs:sequence />
+		<xs:attribute name="id" type="xs:string" />
+		<xs:attribute name="lat" type="xs:double" />
+		<xs:attribute name="lon" type="xs:double" />
+		<xs:attribute name="x" type="xs:double" />
+		<xs:attribute name="y" type="xs:double" />
+		<xs:attribute name="alt" type="xs:double" />
+	</xs:complexType>
+
+	<xs:complexType name="SigintDatum">
+		<xs:complexContent>
+			<xs:extension base="tns:IntDatum">
+				<xs:sequence />
+				<xs:attribute name="radius_miles" type="xs:double" />
+				<xs:attribute name="redActivityDetected" type="xs:boolean" />
+				<xs:attribute name="redAttackProbability" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Mission_4_5_6_Trial">
+		<xs:complexContent>
+			<xs:extension base="tns:IcarusTestTrial_Phase2">
+				<xs:sequence>
+					<xs:element name="RedTacticsProbe" type="tns:AbstractRedTacticsProbe"
+						minOccurs="0" />
+					<xs:element name="OsintPresentation" type="tns:OsintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="ImintPresentation" type="tns:ImintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="AttackPropensityProbe_Pp" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="HumintPresentation" type="tns:HumintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="AttackProbabilityProbe_Ppc" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="SigintSelectionProbe" type="tns:SigintSelectionProbe"
+						minOccurs="0" />
+					<xs:element name="SigintPresentation" type="tns:SigintPresentationProbe"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="AttackProbabilityProbe_Pt" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="AttackProbabilityProbe_Ptpc" type="tns:AttackProbabilityReportProbe"
+						minOccurs="0" />
+					<xs:element name="BlueActionSelection" type="tns:BlueActionSelectionProbe"
+						minOccurs="0" />
+					<xs:element name="RedActionSelection" type="tns:RedActionSelectionProbe"
+						minOccurs="0" />
+					<xs:element name="ShowdownWinner" type="tns:ShowdownWinner"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="RedTactic" type="tns:RedTacticType"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Mission_4_5_6">
+		<xs:complexContent>
+			<xs:extension base="tns:Mission_Phase2">
+				<xs:sequence>
+					<xs:element name="Trial" type="tns:Mission_4_5_6_Trial"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+				<xs:attribute name="maxNumBatchPlots" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="BlueBook">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractDatum">
+				<xs:sequence>
+					<xs:element name="Mission_1_Tactics" type="tns:RedTactic"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Mission_1_TacticsInstructions" type="ns1:InstructionsPage"
+						minOccurs="0" />
+					<xs:element name="Mission_2_Tactics" type="tns:RedTactic"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Mission_2_TacticsInstructions" type="ns1:InstructionsPage"
+						minOccurs="0" />
+					<xs:element name="Mission_3_Tactics" type="tns:RedTactic"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Mission_3_TacticsInstructions" type="ns1:InstructionsPage"
+						minOccurs="0" />
+					<xs:element name="Mission_4_Tactics" type="tns:RedTactic"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Mission_4_TacticsInstructions" type="ns1:InstructionsPage"
+						minOccurs="0" />
+					<xs:element name="Mission_5_Tactics" type="tns:RedTactic"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="Mission_5_TacticsInstructions" type="ns1:InstructionsPage"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="RedTactic">
+		<xs:sequence>
+			<xs:element name="TacticParameters" type="tns:RedTacticParameters"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="type" type="tns:RedTacticType" />
+	</xs:complexType>
+
+	<xs:complexType name="PayoffMatrix">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractDatum">
+				<xs:sequence>
+					<xs:element name="BluePayoffs" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PayoffMatrixInstructions" type="ns1:InstructionsPage"
+						minOccurs="0" />
+					<xs:element name="RedPayoffs" minOccurs="0">
+						<xs:simpleType>
+							<xs:list itemType="xs:double" />
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AreaOfInterest">
+		<xs:complexContent>
+			<xs:extension base="tns:GeoArea">
+				<xs:sequence>
+					<xs:element name="SceneImageFile" type="tns:FeatureVectorFileDescriptor"
+						minOccurs="0" />
+					<xs:element name="BlueRegion" type="tns:Region"
+						minOccurs="0" />
+					<xs:element name="Roads" type="tns:FeatureContainer"
+						minOccurs="0" />
+					<xs:element name="Buildings" type="tns:FeatureContainer"
+						minOccurs="0" />
+					<xs:element name="Terrain" type="tns:FeatureContainer"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="imintRadius_miles" type="xs:double" />
+				<xs:attribute name="sigintRadius_miles" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeoArea">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractFeature">
+				<xs:sequence />
+				<xs:attribute name="bottomRightLat" type="xs:double" />
+				<xs:attribute name="bottomRightLon" type="xs:double" />
+				<xs:attribute name="gridHeight" type="xs:int" />
+				<xs:attribute name="gridSquareSize_miles" type="xs:double" />
+				<xs:attribute name="gridWidth" type="xs:int" />
+				<xs:attribute name="topLeftLat" type="xs:double" />
+				<xs:attribute name="topLeftLon" type="xs:double" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AbstractFeature" abstract="true">
+		<xs:sequence />
+		<xs:attribute name="id" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="Region">
+		<xs:complexContent>
+			<xs:extension base="tns:Polygon">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Polygon">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractFeature">
+				<xs:sequence>
+					<xs:element name="InnerBounds" type="tns:LinearRing"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="OuterBounds" type="tns:LinearRing"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="LinearRing">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractFeature">
+				<xs:sequence>
+					<xs:element name="Coordinate" type="tns:GeoCoordinate"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="LineString">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractFeature">
+				<xs:sequence>
+					<xs:element name="Coordinate" type="tns:GeoCoordinate"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Road">
+		<xs:complexContent>
+			<xs:extension base="tns:LineString">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Point">
+		<xs:complexContent>
+			<xs:extension base="tns:AbstractFeature">
+				<xs:sequence>
+					<xs:element name="Coordinate" type="tns:GeoCoordinate"
+						minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="BlueLocation">
+		<xs:complexContent>
+			<xs:extension base="tns:Point">
+				<xs:sequence>
+					<xs:element name="Osint" type="tns:OsintDatum"
+						minOccurs="0" />
+					<xs:element name="Imint" type="tns:ImintDatum"
+						minOccurs="0" />
+					<xs:element name="Sigint" type="tns:SigintDatum"
+						minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="name" type="xs:string" />
+				<xs:attribute name="trialNumber" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Building">
+		<xs:complexContent>
+			<xs:extension base="tns:Polygon">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Terrain">
+		<xs:complexContent>
+			<xs:extension base="tns:Polygon">
+				<xs:sequence />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="FeatureContainer">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="tns:Road" />
+				<xs:element ref="tns:Building" />
+				<xs:element ref="tns:Terrain" />
+				<xs:element ref="tns:Region" />
+				<xs:element ref="tns:BlueLocation" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="BlueActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Divert" />
+			<xs:enumeration value="Do_Not_Divert" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="RedActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Attack" />
+			<xs:enumeration value="Do_Not_Attack" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="PlayerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Blue" />
+			<xs:enumeration value="Red" />
+			<xs:enumeration value="Observer" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="MissionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Mission_1" />
+			<xs:enumeration value="Mission_2" />
+			<xs:enumeration value="Mission_3" />
+			<xs:enumeration value="Mission_4" />
+			<xs:enumeration value="Mission_5" />
+			<xs:enumeration value="Mission_6" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="RedTacticType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Mission_1" />
+			<xs:enumeration value="Mission_2_Passive" />
+			<xs:enumeration value="Mission_2_Aggressive" />
+			<xs:enumeration value="Mission_3" />
+			<xs:enumeration value="Mission_4_Passive" />
+			<xs:enumeration value="Mission_4_Aggressive" />
+			<xs:enumeration value="Mission_5_Psensitive" />
+			<xs:enumeration value="Mission_5_Usensitive" />
+			<xs:enumeration value="Mission_6_1" />
+			<xs:enumeration value="Mission_6_2" />
+			<xs:enumeration value="Mission_6_3" />
+			<xs:enumeration value="Mission_6_4" />
+			<xs:enumeration value="Mission_6_5" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TrialPartProbeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MostLikelyRedTacticSelection" />
+			<xs:enumeration value="RedTacticsProbabilityReport" />
+			<xs:enumeration value="RedTacticsChangesReport" />
+			<xs:enumeration value="BatchPlotProbe" />
+			<xs:enumeration value="AttackProbabilityReport_Pp" />
+			<xs:enumeration value="AttackProbabilityReport_Ppc" />
+			<xs:enumeration value="AttackProbabilityReport_Pt" />
+			<xs:enumeration value="AttackProbabilityReport_Ptpc" />
+			<xs:enumeration value="SigintSelection" />
+			<xs:enumeration value="RedActionSelection" />
+			<xs:enumeration value="BlueActionSelection" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="DatumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HUMINT" />
+			<xs:enumeration value="IMINT" />
+			<xs:enumeration value="OSINT" />
+			<xs:enumeration value="SIGINT" />
+			<xs:enumeration value="SIGINTReliability" />
+			<xs:enumeration value="AttackProbabilityReport" />
+			<xs:enumeration value="AttackProbabilityReport_Propensity" />
+			<xs:enumeration value="AttackProbabilityReport_Capability_Propensity" />
+			<xs:enumeration value="AttackProbabilityReport_Activity" />
+			<xs:enumeration
+				value="AttackProbabilityReport_Activity_Capability_Propensity" />
+			<xs:enumeration value="BlueBook" />
+			<xs:enumeration value="PayoffMatrix" />
+			<xs:enumeration value="BatchPlots" />
+			<xs:enumeration value="RedTacticProbabilityReport" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="BatchPlotProbeButtonType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Backward" />
+			<xs:enumeration value="Forward" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="NormalizationConstraintType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LessThanOrEqualTo" />
+			<xs:enumeration value="EqualTo" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="RedTacticConsiderationData">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="P_Only" />
+			<xs:enumeration value="U_Only" />
+			<xs:enumeration value="P_And_U" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
